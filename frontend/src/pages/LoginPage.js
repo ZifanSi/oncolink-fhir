@@ -10,6 +10,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
     try {
       const res = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
@@ -19,7 +20,9 @@ export default function LoginPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
-      navigate('/menu');
+
+      localStorage.setItem('loggedIn', 'true'); // ✅ Save login
+      navigate('/menu'); // ✅ Redirect
     } catch (err) {
       setError(err.message);
     }

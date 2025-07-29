@@ -1,0 +1,4 @@
+1. Reset localStorage When Testing
+ DevTools → Application → localStorage → Clear
+ loggedIn true
+ localStorage.clear();

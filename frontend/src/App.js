@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MenuPage from './pages/MenuPage';
 import PatientsPage from './pages/PatientsPage';
@@ -7,22 +7,47 @@ import RecordsPage from './pages/RecordsPage';
 import AppointmentsPage from './pages/AppointmentsPage';
 import TreatmentPage from './pages/TreatmentPage';
 import NavBar from './components/NavBar';
+import RequireAuth from './components/RequireAuth';
 
-function App() {
+const isLoggedIn = () => localStorage.getItem('loggedIn') === 'true';
+
+function AppLayout() {
+  const location = useLocation();
+  const showNav = isLoggedIn() && location.pathname !== '/login';
+
   return (
-    <Router>
-      <NavBar />
+    <>
+      {showNav && <NavBar />}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/menu" element={<MenuPage />} />
-        <Route path="/patients" element={<PatientsPage />} />
-        <Route path="/records" element={<RecordsPage />} />
-        <Route path="/appointments" element={<AppointmentsPage />} />
-        <Route path="/treatments" element={<TreatmentPage />} />
-        <Route path="*" element={<LoginPage />} />
+
+        <Route path="/menu" element={
+          <RequireAuth><MenuPage /></RequireAuth>
+        } />
+        <Route path="/patients" element={
+          <RequireAuth><PatientsPage /></RequireAuth>
+        } />
+        <Route path="/records" element={
+          <RequireAuth><RecordsPage /></RequireAuth>
+        } />
+        <Route path="/appointments" element={
+          <RequireAuth><AppointmentsPage /></RequireAuth>
+        } />
+        <Route path="/treatments" element={
+          <RequireAuth><TreatmentPage /></RequireAuth>
+        } />
+
+        {/* default fallback */}
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppLayout />
+    </Router>
+  );
+}
