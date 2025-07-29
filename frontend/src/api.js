@@ -11,3 +11,9 @@ export async function login(username, password) {
   if (!res.ok) throw new Error(data.message);
   return data;
 }
+
+export async function fetchPatients() {
+  const res = await fetch(`${API}/patients`);
+  if (!res.ok) throw new Error('Failed to fetch patients');
+  return await res.json();
+}
