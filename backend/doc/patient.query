@@ -1,0 +1,11 @@
+CREATE TABLE [hcs].[dbo].[Patients] (
+    PatientID INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName NVARCHAR(100) NOT NULL,
+    LastName NVARCHAR(100) NOT NULL,
+    DOB DATE NOT NULL,
+    Gender NVARCHAR(10) NOT NULL,
+    Phone NVARCHAR(20),
+    Email NVARCHAR(255),
+    SIN CHAR(9), 
+    DateRegistered DATETIME DEFAULT GETDATE()
+);
