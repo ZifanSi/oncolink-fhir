@@ -42,3 +42,18 @@ export async function updatePatient(id, patient) {
   });
   if (!res.ok) throw new Error('Failed to update patient');
 }
+
+// TASK WORKFLOW AUTOMATION
+export async function fetchTasks(patientId) {
+  const res = await fetch(`${API}/tasks/${patientId}`);
+  if (!res.ok) throw new Error('Failed to fetch tasks');
+  return await res.json();
+}
+
+export async function completeTask(taskId) {
+  const res = await fetch(`${API}/tasks/complete/${taskId}`, {
+    method: 'POST'
+  });
+  if (!res.ok) throw new Error('Failed to complete task');
+  return await res.json();
+}
