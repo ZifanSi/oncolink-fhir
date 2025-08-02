@@ -12,7 +12,6 @@ import MenuPage from './pages/MenuPage';
 import PatientsPage from './pages/PatientsPage';
 import NavBar from './components/NavBar';
 import RequireAuth from './components/RequireAuth';
-import DoctorWorkspacePage from './pages/DoctorWorkspacePage'
 
 
 const isLoggedIn = () => localStorage.getItem('loggedIn') === 'true';

@@ -1,44 +1,49 @@
-const API = 'http://localhost:5000/api';
+const AUTH_API = 'http://localhost:5001/api';
+const PATIENT_API = 'http://localhost:5002/api';
 
+async function request(url, options = {}) {
+  try {
+    const res = await fetch(url, options);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Request failed');
+    return data;
+  } catch (err) {
+    throw new Error(err.message || 'Network error');
+  }
+}
+
+// ───── Auth API ─────
 export async function login(username, password) {
-  const res = await fetch(`${API}/auth/login`, {
+  return request(`${AUTH_API}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
   });
-
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message);
-  return data;
 }
 
+// ───── Patient API ─────
 export async function fetchPatients() {
-  const res = await fetch(`${API}/patients`);
-  if (!res.ok) throw new Error('Failed to fetch patients');
-  return await res.json();
+  return request(`${PATIENT_API}/patients`);
 }
 
 export async function addPatient(patient) {
-  const res = await fetch(`${API}/patients`, {
+  return request(`${PATIENT_API}/patients`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(patient)
   });
-  if (!res.ok) throw new Error('Failed to add patient');
 }
 
 export async function deletePatient(id) {
-  const res = await fetch(`${API}/patients/${id}`, {
+  return request(`${PATIENT_API}/patients/${id}`, {
     method: 'DELETE'
   });
-  if (!res.ok) throw new Error('Failed to delete patient');
 }
 
 export async function updatePatient(id, patient) {
-  const res = await fetch(`${API}/patients/${id}`, {
+  return request(`${PATIENT_API}/patients/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(patient)
   });
-  if (!res.ok) throw new Error('Failed to update patient');
 }
