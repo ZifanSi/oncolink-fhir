@@ -56,22 +56,4 @@ Automatic alerts for urgent cases, missed milestones, or required approvals.
 **Performance Tracking**  
 End-to-end analytics for median time between biopsy, referral, and treatment.
 
----
 
-## System Architecture
-
-```mermaid
-graph TD
-LAB[Lab / Pathology System] -->|FHIR DiagnosticReport| INTAKE[Biopsy Intake Service]
-INTAKE --> REF[Referral Service]
-REF --> SCHED[Scheduling Service]
-SCHED --> TREAT[Treatment Service]
-
-UI[Clinician/Scheduler Web App] --> GW[API Gateway]
-GW --> AUTH[Auth Service]
-GW --> REF
-GW --> SCHED
-GW --> ANALYTICS[Analytics Service]
-
-REDIS[(Redis Cache)] --> GW
-MSSQL[(SQL Server)] --> All Services
