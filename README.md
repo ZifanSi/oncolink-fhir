@@ -1,4 +1,4 @@
-# OncoFlow — Automated Oncology Care Workflows to Reduce Treatment Delays
+# OncoSynapse — Automated Oncology Care Workflows to Reduce Treatment Delays
 
 In Canada, delays in cancer care are often caused not by lack of medical expertise, but by **inefficient administrative workflows**: slow referrals, manual scheduling, and disconnected health systems.  
 OncoSynapse is a FHIR-native, microservices-based platform that **automates and coordinates oncology workflows** from initial biopsy to treatment initiation.
